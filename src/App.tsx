@@ -4,13 +4,21 @@ import './App.css';
 import Box from './components/Box';
 import RecipeReviewCard from './components/Card';
 import BasicStack from './components/BasicStack';
+import BasicGrid from './components/BasicGrid';
+import BasicMenu from './components/Menu';
+import DataBoxList from './components/DataBox';
 
 function App() {
   return (
     <>
-      <Box/>
-      <RecipeReviewCard/>
-      <BasicStack/>
+      <BasicMenu/>
+      <DataBoxList/>
+      <BasicGrid/>
+        <Box/>
+        <RecipeReviewCard/>
+        <BasicStack/>
+        
+      
     
     </>
     

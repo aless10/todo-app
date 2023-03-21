@@ -24,7 +24,7 @@ export default function BasicStack() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Button data-testid="toggle" variant="contained" onClick={addItem}>Contained</Button>
+      <Button data-testid="toggle" variant="contained" onClick={addItem}>Create a new task</Button>
       <Stack spacing={2}>
         {items.map((item, index) => {
             const tid = `test-${index}`
