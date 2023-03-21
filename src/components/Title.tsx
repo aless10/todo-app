@@ -17,15 +17,16 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Title() {
 
   return (
-    <Box sx={{ width: '70%' }}>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-        <Typography variant="body1" color="text.secondary">
-          ToDo List
-        </Typography>
+    <Box sx={{ width: '100%', mt: 3, display: 'flex', 
+    flexDirection: 'column', alignItems: 'center' }}>
+      <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+        <Grid item xs={3} sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <Typography variant="h2">
+            ToDo List
+          </Typography>
         </Grid>
-        <Grid item xs={6}>
-        <Button data-testid="toggle" variant="contained">Create a new task</Button>
+        <Grid item xs={3} sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <Button data-testid="toggle" variant="contained">Create a new task</Button>
         </Grid>
       </Grid>
     </Box>

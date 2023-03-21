@@ -55,12 +55,12 @@ function DataBox(props: DataBoxProps) {
     <Box
       sx={{
         backgroundColor: props.bgColor,
-        boxShadow: 1,
+        boxShadow: 2,
         borderRadius: 5,
         p: 2,
         m: 2,
-        minWidth: 200,
-        minHeight: 250,
+        minWidth: 80,
+        minHeight: 150,
         display: 'flex', 
         flexDirection: 
         'column', 
@@ -70,7 +70,7 @@ function DataBox(props: DataBoxProps) {
       <Box sx={{borderRadius: '50%', backgroundColor: props.iconBgColor, width: 80,
           height: 80, alignItems: 'center', display: 'flex', 
           flexDirection: 
-          'column', justifyContent: 'center' }}>
+          'column', justifyContent: 'center', mt: 5 }}>
         <Component sx={{width: 30, height: 30}} />
       </Box>
       <Typography variant="h4" sx={{ color: 'text.secondary', m: 1.5, textAlign: 'center' }}>
