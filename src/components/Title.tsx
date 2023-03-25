@@ -1,20 +1,13 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
-import { Grid, Typography, colors } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+type Props = {
+  handleNewTask: () => void
+}
 
-export default function Title() {
+
+export default function Title({handleNewTask}: Props) {
 
   return (
     <Box sx={{ width: '100%', mt: 3, display: 'flex', 
@@ -26,7 +19,7 @@ export default function Title() {
           </Typography>
         </Grid>
         <Grid item xs={3} sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          <Button data-testid="toggle" variant="contained">Create a new task</Button>
+          <Button data-testid="toggle" onClick={handleNewTask} variant="contained">Create a new task</Button>
         </Grid>
       </Grid>
     </Box>

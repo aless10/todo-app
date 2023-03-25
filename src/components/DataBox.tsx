@@ -88,10 +88,10 @@ function DataBox(props: DataBoxProps) {
 export default function DataBoxList() {
   return <>
   <Grid container spacing={2}>
-    {DataBoxElements.map((element, index) => {
+    {DataBoxElements.map((element) => {
       return (
       <Grid item xs={3}>
-        <DataBox key={index} text={element.text} counter={element.counter} bgColor={element.bgColor} iconBgColor={element.iconBgColor} icon={element.icon}/>
+        <DataBox key={element.text} text={element.text} counter={element.counter} bgColor={element.bgColor} iconBgColor={element.iconBgColor} icon={element.icon}/>
       </Grid>
       )
     })}

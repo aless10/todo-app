@@ -42,7 +42,7 @@ export default function BasicMenu() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             ToDo App
           </Typography>
-          <IconLabelButtons></IconLabelButtons>
+          <IconLabelButtons/>
         </Toolbar>
       </AppBar>
     </Box>

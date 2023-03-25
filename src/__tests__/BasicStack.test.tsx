@@ -3,7 +3,6 @@ import { unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import { render, screen, fireEvent } from '@testing-library/react';
 import BasicStack from '../components/BasicStack';
-import Button from '@mui/material/Button';
 
 let container: any = null;
 beforeEach(() => {

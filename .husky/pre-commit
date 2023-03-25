@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+yarn rome check .
+
+exitCode=$?;
+
+if [ $exitCode != 0 ]; then
+  echo "Rome had a lot of work to do. Please rerun your git commit command and let the magic happen"
+  yarn rome format .
+  exit $exitCode
+fi
