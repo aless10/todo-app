@@ -4,7 +4,7 @@ import Menu from './components/Menu';
 import DataBoxList from './components/DataBox';
 import Footer from './components/Footer';
 import { useState } from 'react';
-import { TaskProps } from './types';
+
 
 
 function App() {

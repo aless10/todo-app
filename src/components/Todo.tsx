@@ -6,8 +6,24 @@ import Title from './Title';
 import { useState } from 'react';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
-import { Button, Stack, Typography } from '@mui/material';
-import { TaskProps } from '../types';
+import { Autocomplete, Button, Stack, Typography } from '@mui/material';
+import { ITask } from '../types';
+
+type Tag = {
+  label: string
+  color: string
+}
+
+type TaskProps = ITask & {
+  markCompleted: (id: string) => void
+  markDeleted: (id: string) => void
+}
+
+const TAGS = [
+  {label: 'Work', color: 'red'},
+  {label: 'Hobby', color: 'cyan'},
+  {label: 'Life', color: 'green'}
+]
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -19,22 +35,9 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-function ActionButtons() {
-  return (
-    <Stack direction="row" spacing={2}>
-      <Button variant="contained" sx={{color: '#566459', backgroundColor: '#a0eebb'}} >
-        Mark as completed
-      </Button>
-      <Button variant="contained" sx={{ color: '#566459', backgroundColor: '#ffbf9b'}} >
-        Delete
-      </Button>
-    </Stack>
-  );
-}
+const Task = ({markCompleted, markDeleted, id, text, state, createdAt, active, title, tags}: TaskProps) => {
 
-const Task = ({id, text, state, createdAt, active, title, tags}: TaskProps) => {
-
-  const [isActive, setIsActive] = useState<boolean>(false)
+  const [isActive, setIsActive] = useState<boolean>(true)
 
   const handleOnClick = () => {
     setIsActive(!isActive)
@@ -43,7 +46,7 @@ const Task = ({id, text, state, createdAt, active, title, tags}: TaskProps) => {
   return (
     <>
       <Grid item xs={6}>
-        <Item onClick={handleOnClick}>
+        <Item onClick={handleOnClick} sx={{ color: state === 'completed' ? 'green' : undefined}}>
           <Grid container sx={{
             p: 1,
             display: 'flex', 
@@ -57,13 +60,20 @@ const Task = ({id, text, state, createdAt, active, title, tags}: TaskProps) => {
               {tags?.map(tag => <Chip label="Tag 1" />)}
             </Grid>
             <Grid item xs={6} >
-              <ActionButtons/>
+                <Stack direction="row" spacing={2}>
+                  <Button onClick={() => markCompleted(id)} variant="contained" sx={{color: '#566459', backgroundColor: '#a0eebb'}} >
+                    Mark as completed
+                  </Button>
+                  <Button variant="contained" onClick={() => markDeleted(id)} sx={{ color: '#566459', backgroundColor: '#ffbf9b'}} >
+                    Delete
+                </Button>
+              </Stack>
             </Grid>  
           </Grid>
         </Item>        
       </Grid>
       <Grid item xs={6}>
-        {active && (
+        {isActive && (
         <Item>
           <Grid container sx={{
             p: 1,
@@ -74,6 +84,23 @@ const Task = ({id, text, state, createdAt, active, title, tags}: TaskProps) => {
             <Grid item xs={6}>
               <TextField id="standard-basic" label="Title" variant="standard" defaultValue={title}/>
               <Typography sx={{ m: 2 }} variant='body2'>{createdAt.toDateString()}</Typography>  
+              <Autocomplete
+                multiple
+                size="small"
+                options={TAGS}
+                renderTags={(tagValue, getTagProps) =>
+                  tagValue.map((option, index) => (
+                    <Chip
+                      size="small"
+                      sx={{color: option.color}}
+                      label={option.label}
+                      {...getTagProps({ index })}
+                      key={option.label}
+                    />
+                  ))
+                }
+                renderInput={(params) => <TextField label='tags' {...params}/>}
+              />
             </Grid>
             <Grid item xs={6} sx={{justifyContent: 'flex-end', alignItems: 'flex-end'}}>
               <Button variant="contained" sx={{color: '#566459', backgroundColor: '#a0eebb'}} >
@@ -93,12 +120,11 @@ const Task = ({id, text, state, createdAt, active, title, tags}: TaskProps) => {
 
 export default function Todo() {
 
-  const [tasks, setTasks] = useState<TaskProps[]>([])
+  const [tasks, setTasks] = useState<ITask[]>([])
 
   const addTask = () => {
-    const taskId = tasks[-1]?.id || 0
-    const newTask: TaskProps = {
-      id: taskId + 1,
+    const newTask: ITask = {
+      id: crypto.randomUUID(),
       createdAt: new Date(),
       title: 'newTask',
       active: true,
@@ -106,6 +132,21 @@ export default function Todo() {
     }
     setTasks([newTask, ...tasks])
 
+  }
+
+  const markCompleted = (taskId: string) => {
+    const updatedTasks = tasks.map(t => {
+      if (t.id === taskId) {
+        t.state = 'completed'
+      }
+      return t
+    })
+    setTasks([...updatedTasks])
+  }
+
+  const markDeleted = (taskId: string) => {
+    const updatedTasks = tasks.filter(t => t.id !== taskId)
+    setTasks([...updatedTasks])
   }
 
   
@@ -119,7 +160,7 @@ export default function Todo() {
         flexDirection: 
         'row', 
       }}>
-        {tasks.map((t) => <Task key={t.id} createdAt={t.createdAt} state={t.state} id={t.id} title={t.title} active={t.active} tags={t.tags}/>)}
+        {tasks.map((t) => <Task markDeleted={markDeleted} markCompleted={markCompleted} key={t.id} createdAt={t.createdAt} state={t.state} id={t.id} title={t.title} active={t.active} tags={t.tags}/>)}
       </Grid>
     </Box>
     

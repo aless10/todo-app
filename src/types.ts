@@ -1,5 +1,5 @@
-export type TaskProps = {
-  id: number
+export type ITask = {
+  id: string
   title: string
   active: boolean
   createdAt: Date

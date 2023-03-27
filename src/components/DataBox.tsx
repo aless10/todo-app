@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { AddCard, Construction, Delete, TaskAlt } from '@mui/icons-material';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import { SvgIconTypeMap } from '@mui/material';
-import { TaskProps } from '../types';
+
 
 type DataBoxProps = {
   text: string;
@@ -79,10 +79,6 @@ function DataBox(props: DataBoxProps) {
       
     </Box>
   );
-}
-
-type DataBoxListProps = {
-  tasks: TaskProps[]
 }
 
 
