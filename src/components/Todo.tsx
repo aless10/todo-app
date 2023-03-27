@@ -17,6 +17,7 @@ type Tag = {
 type TaskProps = ITask & {
   markCompleted: (id: string) => void
   markDeleted: (id: string) => void
+  setCurrentActive: () => void
 }
 
 const TAGS = [
@@ -35,18 +36,13 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-const Task = ({markCompleted, markDeleted, id, text, state, createdAt, active, title, tags}: TaskProps) => {
+const Task = ({setCurrentActive, markCompleted, markDeleted, id, text, state, createdAt, active, title, tags}: TaskProps) => {
 
-  const [isActive, setIsActive] = useState<boolean>(true)
-
-  const handleOnClick = () => {
-    setIsActive(!isActive)
-  }
 
   return (
     <>
       <Grid item xs={6}>
-        <Item onClick={handleOnClick} sx={{ color: state === 'completed' ? 'green' : undefined}}>
+        <Item onClick={setCurrentActive} sx={{ color: state === 'completed' ? 'green' : undefined}}>
           <Grid container sx={{
             p: 1,
             display: 'flex', 
@@ -73,7 +69,7 @@ const Task = ({markCompleted, markDeleted, id, text, state, createdAt, active, t
         </Item>        
       </Grid>
       <Grid item xs={6}>
-        {isActive && (
+        {active && (
         <Item>
           <Grid container sx={{
             p: 1,
@@ -122,6 +118,9 @@ export default function Todo() {
 
   const [tasks, setTasks] = useState<ITask[]>([])
 
+  const [activeTask, setActiveTask] = useState<string>()
+
+
   const addTask = () => {
     const newTask: ITask = {
       id: crypto.randomUUID(),
@@ -130,8 +129,12 @@ export default function Todo() {
       active: true,
       state: 'created'
     }
-    setTasks([newTask, ...tasks])
-
+    const previousTasks = tasks.map(t => {
+      t.active = true
+      return t
+    })
+    setActiveTask(newTask.id)
+    setTasks([newTask, ...previousTasks])
   }
 
   const markCompleted = (taskId: string) => {
@@ -148,7 +151,6 @@ export default function Todo() {
     const updatedTasks = tasks.filter(t => t.id !== taskId)
     setTasks([...updatedTasks])
   }
-
   
   return (
     <>
@@ -160,7 +162,7 @@ export default function Todo() {
         flexDirection: 
         'row', 
       }}>
-        {tasks.map((t) => <Task markDeleted={markDeleted} markCompleted={markCompleted} key={t.id} createdAt={t.createdAt} state={t.state} id={t.id} title={t.title} active={t.active} tags={t.tags}/>)}
+        {tasks.map((t) => <Task setCurrentActive={() => setActiveTask(t.id)} markDeleted={markDeleted} markCompleted={markCompleted} key={t.id} createdAt={t.createdAt} state={t.state} id={t.id} title={t.title} active={activeTask === t.id} tags={t.tags}/>)}
       </Grid>
     </Box>
     
