@@ -5,42 +5,39 @@ import Typography from '@mui/material/Typography';
 import { AddCard, Construction, Delete, TaskAlt } from '@mui/icons-material';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import { SvgIconTypeMap } from '@mui/material';
+import { TaskProps } from '../types';
 
 type DataBoxProps = {
   text: string;
-  counter: number;
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
     muiName: string;
   };
   bgColor: string;
   iconBgColor: string;
+  counter?: number
 }
 
 const DataBoxElements: Array<DataBoxProps> = [
   {
     text: 'Created tasks',
-    counter: 0,
     bgColor: '#cafdf5',
     iconBgColor: '#96f8f4',
     icon: AddCard
   },
   {
     text: 'Completed tasks',
-    counter: 0,
     bgColor: '#d8fbde',
     iconBgColor: '#a0eebb',
     icon: TaskAlt
   },
   {
     text: 'Deleted tasks',
-    counter: 0,
     bgColor: '#ffe9d5',
     iconBgColor: '#ffbf9b',
     icon: Delete
   },
   {
     text: 'Remaining tasks',
-    counter: 0,
     bgColor: '#fff5cc',
     iconBgColor: '#ffe38f',
     icon: Construction
@@ -82,6 +79,10 @@ function DataBox(props: DataBoxProps) {
       
     </Box>
   );
+}
+
+type DataBoxListProps = {
+  tasks: TaskProps[]
 }
 
 

@@ -25,7 +25,7 @@ function IconLabelButtons() {
 }
 
 
-export default function BasicMenu() {
+export default function Menu() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ background: 'white', color: 'black' }}>

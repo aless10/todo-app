@@ -1,15 +1,19 @@
 import './App.css';
-import BasicGrid from './components/BasicGrid';
-import BasicMenu from './components/Menu';
+import Todo from './components/Todo';
+import Menu from './components/Menu';
 import DataBoxList from './components/DataBox';
 import Footer from './components/Footer';
+import { useState } from 'react';
+import { TaskProps } from './types';
+
 
 function App() {
+
   return (
     <>
-      <BasicMenu/>
-      <DataBoxList/>
-      <BasicGrid/>
+      <Menu/>
+      <DataBoxList />
+      <Todo />
       <Footer/>
     </>
     
