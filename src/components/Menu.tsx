@@ -28,7 +28,7 @@ function IconLabelButtons() {
 export default function Menu() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ background: 'white', color: 'black' }}>
+      <AppBar position="fixed" sx={{ background: 'white', color: 'black' }}>
         <Toolbar>
           <IconButton
             size="large"
