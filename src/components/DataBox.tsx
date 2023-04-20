@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -89,17 +89,39 @@ function DataBox(props: DataBoxProps) {
   );
 }
 
+export type CounterType = {
+  key: string
+  counter: number
+}
 
-export default function DataBoxList() {
+type DataBoxListProps = {
+  counter: CounterType[]
+}
+
+export function DataBoxList({ counter } : DataBoxListProps ) {
+
+  const [boxElements, setBoxElements] = useState(DataBoxElements)
+
+  useEffect(() => {
+    const updatedBoxElements = boxElements.map(
+      (element) => {
+        const c = counter.find((c) => c.key === element.key)
+        const updatedCounter = c?.counter || 0
+        return {...element, counter: updatedCounter}
+      }
+    )
+    setBoxElements(updatedBoxElements)
+  }, [counter])
+
   return <>
-  <Grid container spacing={2}>
-    {DataBoxElements.map((element) => {
-      return (
-      <Grid item xs={3}>
-        <DataBox key={element.key} text={element.text} counter={element.counter} bgColor={element.bgColor} iconBgColor={element.iconBgColor} icon={element.icon}/>
-      </Grid>
-      )
-    })}
-  </Grid>
-  </>
+    <Grid container spacing={2}>
+      {boxElements.map((element) => {
+        return (
+        <Grid item xs={3}>
+          <DataBox key={element.key} text={element.text} counter={element.counter} bgColor={element.bgColor} iconBgColor={element.iconBgColor} icon={element.icon}/>
+        </Grid>
+        )
+      })}
+    </Grid>
+    </>
 }
