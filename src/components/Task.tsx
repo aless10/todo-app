@@ -2,7 +2,6 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import Title from './Title';
 import { useState } from 'react';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
@@ -39,7 +38,6 @@ export const Task = ({setCurrentActive, markCompleted, markDeleted, task}: TaskP
 
   return (
     <>
-      <Grid item xs={6}>
         <Item onClick={setCurrentActive} sx={{ color: state === 'completed' ? 'green' : undefined}}>
           <Grid container sx={{
             p: 1,
@@ -65,7 +63,6 @@ export const Task = ({setCurrentActive, markCompleted, markDeleted, task}: TaskP
             </Grid>  
           </Grid>
         </Item>        
-      </Grid>
-      </>
+    </>
   )
 }

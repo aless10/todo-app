@@ -8,6 +8,7 @@ import { SvgIconTypeMap } from '@mui/material';
 
 
 type DataBoxProps = {
+  key: string;
   text: string;
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
     muiName: string;
@@ -19,24 +20,28 @@ type DataBoxProps = {
 
 const DataBoxElements: Array<DataBoxProps> = [
   {
+    key: 'created',
     text: 'Created tasks',
     bgColor: '#cafdf5',
     iconBgColor: '#96f8f4',
     icon: AddCard
   },
   {
+    key: 'completed',
     text: 'Completed tasks',
     bgColor: '#d8fbde',
     iconBgColor: '#a0eebb',
     icon: TaskAlt
   },
   {
+    key: 'deleted',
     text: 'Deleted tasks',
     bgColor: '#ffe9d5',
     iconBgColor: '#ffbf9b',
     icon: Delete
   },
   {
+    key: 'remaining',
     text: 'Remaining tasks',
     bgColor: '#fff5cc',
     iconBgColor: '#ffe38f',
@@ -91,7 +96,7 @@ export default function DataBoxList() {
     {DataBoxElements.map((element) => {
       return (
       <Grid item xs={3}>
-        <DataBox key={element.text} text={element.text} counter={element.counter} bgColor={element.bgColor} iconBgColor={element.iconBgColor} icon={element.icon}/>
+        <DataBox key={element.key} text={element.text} counter={element.counter} bgColor={element.bgColor} iconBgColor={element.iconBgColor} icon={element.icon}/>
       </Grid>
       )
     })}

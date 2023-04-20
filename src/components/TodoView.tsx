@@ -12,16 +12,10 @@ type TodoViewProps = {
 export const ToDoView = ({tasks, activeTask}: TodoViewProps) => {
   return (
     <>
-     <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Card>
-            <Box sx={{ display: 'flex', height: '70vh' }}>
-              <TaskList tasks={tasks} />
-              <TaskDetail task={activeTask} />
-            </Box>
-          </Card>
-        </Grid>
-     </Grid>
+      <Box sx={{ display: 'flex', height: '70vh', direction: 'row', flexGrow: 1 }}>
+        <TaskList tasks={tasks} />
+        <TaskDetail task={activeTask} />
+      </Box>
     </>
   )
 }

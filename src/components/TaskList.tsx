@@ -1,6 +1,4 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import { Grid, List, Typography } from '@mui/material';
+import { List } from '@mui/material';
 import { ITask } from '../types';
 import { Task } from './Task';
 
@@ -20,7 +18,7 @@ export default function TaskList({tasks}: Props) {
         disablePadding
       >
         {tasks.map( task => (
-            <Task task={task} setCurrentActive={()=> {}} markCompleted={()=> {}} markDeleted={()=> {}}/>
+            <Task key={task.id} task={task} setCurrentActive={()=> {}} markCompleted={()=> {}} markDeleted={()=> {}}/>
           ))}
       </List>
     </>
