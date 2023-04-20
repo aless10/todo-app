@@ -16,17 +16,12 @@ type Tag = {
   color: string
 }
 
-type TaskProps = ITask & {
+type TaskProps = {
+  task: ITask
   markCompleted: (id: string) => void
   markDeleted: (id: string) => void
   setCurrentActive: () => void
 }
-
-const TAGS = [
-  {label: 'Work', color: 'red'},
-  {label: 'Hobby', color: 'cyan'},
-  {label: 'Life', color: 'green'}
-]
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -38,8 +33,9 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-const Task = ({setCurrentActive, markCompleted, markDeleted, id, text, state, createdAt, active, title, tags}: TaskProps) => {
+export const Task = ({setCurrentActive, markCompleted, markDeleted, task}: TaskProps) => {
 
+  const {id, text, state, createdAt, active, title, tags} = task
 
   return (
     <>
@@ -72,61 +68,4 @@ const Task = ({setCurrentActive, markCompleted, markDeleted, id, text, state, cr
       </Grid>
       </>
   )
-}
-
-
-
-export default function Todo() {
-
-  const [tasks, setTasks] = useState<ITask[]>([])
-
-  const [activeTask, setActiveTask] = useState<ITask>()
-
-
-  const addTask = () => {
-    const newTask: ITask = {
-      id: crypto.randomUUID(),
-      createdAt: new Date(),
-      title: 'newTask',
-      active: true,
-      state: 'created'
-    }
-    const previousTasks = tasks.map(t => {
-      t.active = true
-      return t
-    })
-    setActiveTask(newTask)
-    setTasks([newTask, ...previousTasks])
-  }
-
-  const markCompleted = (taskId: string) => {
-    const updatedTasks = tasks.map(t => {
-      if (t.id === taskId) {
-        t.state = 'completed'
-      }
-      return t
-    })
-    setTasks([...updatedTasks])
-  }
-
-  const markDeleted = (taskId: string) => {
-    const updatedTasks = tasks.filter(t => t.id !== taskId)
-    setTasks([...updatedTasks])
-  }
-  
-  return (
-    <>
-      <Box sx={{ flexGrow: 1 }}>
-        <Title handleNewTask={addTask}/>
-        <Grid container spacing={2}>
-        <Box sx={{ display: 'flex', height: '70vh' }}>
-          <List sx={{ overflowY: 'auto' }} disablePadding>
-            <TaskList tasks={tasks}/>
-            <TaskDetail task={activeTask}/>
-          </List>
-          </Box>
-        </Grid>
-      </Box>
-    </>
-  );
 }

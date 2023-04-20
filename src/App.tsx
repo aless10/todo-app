@@ -4,16 +4,23 @@ import Menu from './components/Menu';
 import DataBoxList from './components/DataBox';
 import Footer from './components/Footer';
 import { useState } from 'react';
+import Title from './components/Title';
+import { ToDoView } from './components/TodoView';
 
 
 
 function App() {
 
+  const addTask = () => {
+    console.log('Clicked')
+  }
+
   return (
     <>  
       <Menu/>
       <DataBoxList />
-      <Todo />
+      <Title handleNewTask={addTask}/>
+      <ToDoView tasks={[]} />
       <Footer/>
     </>
     
