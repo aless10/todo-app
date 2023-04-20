@@ -5,7 +5,7 @@ import { Link, Typography } from '@mui/material';
 export default function Footer() {
 
   return (
-    <Box sx={{ position: 'fixed', backgroundColor: 'white', bottom: 0, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', py: 2, px: 2.5 }}>
+    <Box sx={{ position: 'fixed', backgroundColor: 'white', bottom: 0, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', py: 1, px: 2.5 }}>
         <Box
           sx={{
             display: 'flex',

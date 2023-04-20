@@ -9,11 +9,14 @@ type Props = {
 
 export default function TaskList({tasks}: Props) {
 
+
+
   return (
     <>
       <List
         sx={{
           overflowY: 'auto',
+          height: '50vh'
         }}
         disablePadding
       >
