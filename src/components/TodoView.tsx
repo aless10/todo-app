@@ -1,32 +1,42 @@
-import { Grid, Card, Box } from '@mui/material'
-import { ITask } from '../types'
-import TaskList from './TaskList'
-import TaskDetail from './TaskDetail'
+import { Grid } from "@mui/material";
+import { ITask } from "../types";
+import TaskList from "./TaskList";
+import TaskDetail from "./TaskDetail";
 
 type TodoViewProps = {
-    tasks: ITask[]
-    activeTask?: ITask
-}
+  tasks: ITask[];
+  activeTask?: ITask;
+  markAsCompleteTask: (taskId: string) => void;
+  markAsDeleteTask: (taskId: string) => void;
+};
 
-
-export const ToDoView = ({tasks, activeTask}: TodoViewProps) => {
+export const ToDoView = ({
+  tasks,
+  activeTask,
+  markAsCompleteTask,
+  markAsDeleteTask,
+}: TodoViewProps) => {
   return (
     <>
-      <Grid container sx={{
-            p: 1,
-            display: 'flex', 
-            flexDirection: 
-            'row'
-          }}>
+      <Grid
+        container
+        sx={{
+          p: 1,
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
         <Grid item xs={6}>
-          
-            <TaskList tasks={tasks} />
-          
+          <TaskList
+            markAsDeleteTask={markAsDeleteTask}
+            markAsCompleteTask={markAsCompleteTask}
+            tasks={tasks}
+          />
         </Grid>
         <Grid item xs={6}>
           <TaskDetail task={activeTask} />
         </Grid>
       </Grid>
     </>
-  )
-}
+  );
+};
