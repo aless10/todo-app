@@ -33,11 +33,10 @@ function App() {
 
   const updateCounterByKey = (key: string, increment: number = 1) => {
     return counter.map((c) => {
-      let counterValue = c.counter;
       if (c.key === key) {
-        counterValue += increment;
+        c.counter += increment;
       }
-      return { key, counter: counterValue };
+      return c;
     });
   };
 
@@ -56,13 +55,8 @@ function App() {
     setActiveTask(newTask);
     setTasks([newTask, ...previousTasks]);
     setCounter(updateCounterByKey("created"));
-    //setCounter(updateCounterByKey("remaining"));
+    setCounter(updateCounterByKey("remaining"));
   };
-  /*const markAsCompleteTask = (taskId: string) => {
-    const updatedTasks = tasks.filter((t) => t.id !== taskId);
-    setTasks([...updatedTasks]);
-    setCounter(updateCounterByKey("completed"));
-  };*/
 
   const markAsCompleteTask = (taskId: string) => {
     const updatedTasks = tasks.map((t) => {
@@ -72,6 +66,7 @@ function App() {
       return t;
     });
     setTasks([...updatedTasks]);
+    setCounter(updateCounterByKey("remaining", -1));
     setCounter(updateCounterByKey("completed"));
   };
 
@@ -82,9 +77,9 @@ function App() {
       }
       return t;
     });
-    //onst updatedTasks = tasks.filter(t => t.id !== taskId)
     setTasks([...updatedTasks]);
     setCounter(updateCounterByKey("deleted"));
+    setCounter(updateCounterByKey("remaining", -1));
   };
 
   return (
