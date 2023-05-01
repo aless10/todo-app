@@ -2,10 +2,10 @@ import "./App.css";
 import Menu from "./components/Menu";
 import { DataBoxList, CounterType } from "./components/DataBox";
 import Footer from "./components/Footer";
-import { useState } from "react";
+import { useState, SyntheticEvent } from "react";
 import Title from "./components/Title";
 import { ToDoView } from "./components/TodoView";
-import { ITask } from "./types";
+import { ITask, Tag } from "./types";
 
 const stateCounter = [
   {
@@ -41,10 +41,11 @@ function App() {
   };
 
   const addTask = () => {
+    const taskId = crypto.randomUUID();
     const newTask: ITask = {
-      id: crypto.randomUUID(),
+      id: taskId,
       createdAt: new Date(),
-      title: "newTask",
+      title: "task " + taskId.split("-")[0],
       active: true,
       state: "created",
     };
@@ -82,6 +83,70 @@ function App() {
     setCounter(updateCounterByKey("remaining", -1));
   };
 
+  const handleClickOnTask = (e: SyntheticEvent) => {
+    const taskId = e.target.id
+      ? e.target.id
+      : e.target.parentNode.parentNode.id;
+    const newActiveTask = tasks.find((t) => t.id === taskId);
+    setActiveTask(newActiveTask);
+  };
+
+  const handleChangeTitle = (e: SyntheticEvent) => {
+    if (activeTask) {
+      const updatedTasks = tasks.map((t) => {
+        if (t.id === activeTask.id) {
+          return {
+            ...t,
+            title: e.target.value,
+          };
+        }
+        return t;
+      });
+      setTasks([...updatedTasks]);
+      setActiveTask({
+        ...activeTask,
+        title: e.target.value,
+      });
+    }
+  };
+  const handleChangeTags = (value: Tag[]): void => {
+    if (activeTask) {
+      const updatedTasks = tasks.map((t) => {
+        if (t.id === activeTask.id) {
+          return {
+            ...t,
+            tags: value,
+          };
+        }
+        return t;
+      });
+      setTasks([...updatedTasks]);
+      setActiveTask({
+        ...activeTask,
+        tags: value,
+      });
+    }
+  };
+
+  const handleChangeDescription = (e: SyntheticEvent) => {
+    if (activeTask) {
+      const updatedTasks = tasks.map((t) => {
+        if (t.id === activeTask.id) {
+          return {
+            ...t,
+            text: e.target.value,
+          };
+        }
+        return t;
+      });
+      setTasks([...updatedTasks]);
+      setActiveTask({
+        ...activeTask,
+        text: e.target.value,
+      });
+    }
+  };
+
   return (
     <>
       <Menu />
@@ -91,6 +156,10 @@ function App() {
         tasks={tasks}
         activeTask={activeTask}
         markAsCompleteTask={markAsCompleteTask}
+        handleChangeDescription={handleChangeDescription}
+        handleChangeTitle={handleChangeTitle}
+        handleChangeTags={handleChangeTags}
+        handleClickOnTask={handleClickOnTask}
         markAsDeleteTask={markAsDeleteTask}
       />
       <Footer />

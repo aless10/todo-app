@@ -4,12 +4,14 @@ import { Task } from "./Task";
 
 type Props = {
   tasks: ITask[];
+  handleClickOnTask: (e: any) => void;
   markAsCompleteTask: (taskId: string) => void;
   markAsDeleteTask: (taskId: string) => void;
 };
 
 export default function TaskList({
   tasks,
+  handleClickOnTask,
   markAsCompleteTask,
   markAsDeleteTask,
 }: Props) {
@@ -26,7 +28,7 @@ export default function TaskList({
           <Task
             key={task.id}
             task={task}
-            setCurrentActive={() => {}}
+            setCurrentActive={handleClickOnTask}
             markCompleted={markAsCompleteTask}
             markDeleted={markAsDeleteTask}
           />
