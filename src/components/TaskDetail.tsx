@@ -5,9 +5,9 @@ import { ITask, Tag } from "../types";
 
 type Props = {
   task: ITask | undefined;
-  handleChangeTitle: (e: any) => void;
-  handleChangeTags: (e: any) => void;
-  handleChangeDescription: (e: any) => void;
+  handleChangeTitle: (e: Event) => void;
+  handleChangeTags: (e: Event) => void;
+  handleChangeDescription: (e: Event) => void;
 };
 
 const TAGS: Tag[] = [
@@ -53,7 +53,7 @@ export default function TaskDetail({
                 onChange={handleChangeTitle}
               />
               <Typography sx={{ m: 2 }} variant="body2">
-                {task.createdAt.toDateString()}
+                {new Date(task.createdAt).toDateString()}
               </Typography>
               <Autocomplete
                 multiple
@@ -70,7 +70,7 @@ export default function TaskDetail({
                     />
                   ))
                 }
-                onChange={(e: any, value: Tag[]) => handleChangeTags(value)}
+                onChange={(e: Event, value: Tag[]) => handleChangeTags(value)}
                 renderInput={(params) => <TextField label="tags" {...params} />}
               />
             </Grid>

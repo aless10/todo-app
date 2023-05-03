@@ -5,12 +5,13 @@ import Chip from "@mui/material/Chip";
 import { Button, Stack, Typography } from "@mui/material";
 import { ITask } from "../types";
 import { Delete, TaskAlt } from "@mui/icons-material";
+import { MouseEventHandler } from "react";
 
 type TaskProps = {
   task: ITask;
   markCompleted: (id: string) => void;
   markDeleted: (id: string) => void;
-  setCurrentActive: (e: any) => void;
+  setCurrentActive: (e: MouseEventHandler<HTMLDivElement>) => void;
 };
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -32,7 +33,7 @@ export const Task = ({
 
   return (
     <>
-      <Item onClick={setCurrentActive}>
+      <Item onClick={() => setCurrentActive}>
         <Grid
           container
           id={id}

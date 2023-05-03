@@ -1,3 +1,8 @@
+export type CounterType = {
+  key: string;
+  counter: number;
+};
+
 export type Tag = {
   label: string;
   color: string;

@@ -6,10 +6,10 @@ import TaskDetail from "./TaskDetail";
 type TodoViewProps = {
   tasks: ITask[];
   activeTask?: ITask;
-  handleClickOnTask: (e: any) => void;
-  handleChangeTitle: (e: any) => void;
-  handleChangeTags: (e: any) => void;
-  handleChangeDescription: (e: any) => void;
+  handleClickOnTask: (e: Event) => void;
+  handleChangeTitle: (e: Event) => void;
+  handleChangeTags: (e: Event) => void;
+  handleChangeDescription: (e: Event) => void;
   markAsCompleteTask: (taskId: string) => void;
   markAsDeleteTask: (taskId: string) => void;
 };

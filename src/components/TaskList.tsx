@@ -4,7 +4,7 @@ import { Task } from "./Task";
 
 type Props = {
   tasks: ITask[];
-  handleClickOnTask: (e: any) => void;
+  handleClickOnTask: (e: Event) => void;
   markAsCompleteTask: (taskId: string) => void;
   markAsDeleteTask: (taskId: string) => void;
 };

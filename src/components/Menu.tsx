@@ -1,34 +1,46 @@
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 
-import SaveIcon from '@mui/icons-material/Save';
-import DownloadIcon from '@mui/icons-material/Download';
-import Stack from '@mui/material/Stack';
+import SaveIcon from "@mui/icons-material/Save";
+import DownloadIcon from "@mui/icons-material/Download";
+import Stack from "@mui/material/Stack";
 
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import CheckIcon from '@mui/icons-material/Check';
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import CheckIcon from "@mui/icons-material/Check";
 
-function IconLabelButtons() {
+type Props = {
+  save: () => void;
+};
+
+function IconLabelButtons({ save }: Props) {
   return (
     <Stack direction="row" spacing={2}>
-      <Button variant="contained" sx={{backgroundColor: '#00ab55'}} startIcon={<SaveIcon />}>
+      <Button
+        variant="contained"
+        sx={{ backgroundColor: "#00ab55" }}
+        startIcon={<SaveIcon />}
+        onClick={save}
+      >
         Save
       </Button>
-      <Button variant="contained" sx={{backgroundColor: '#3366ff'}} startIcon={<DownloadIcon />}>
+      <Button
+        variant="contained"
+        sx={{ backgroundColor: "#3366ff" }}
+        startIcon={<DownloadIcon />}
+      >
         Export
       </Button>
     </Stack>
   );
 }
 
-
-export default function Menu() {
+export default function Menu({ save }: Props) {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ background: 'white', color: 'black' }}>
+      <AppBar position="fixed" sx={{ background: "white", color: "black" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -42,7 +54,7 @@ export default function Menu() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             ToDo App
           </Typography>
-          <IconLabelButtons/>
+          <IconLabelButtons save={save} />
         </Toolbar>
       </AppBar>
     </Box>
