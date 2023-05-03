@@ -28,6 +28,7 @@ export default function TaskList({
           <Task
             key={task.id}
             task={task}
+            //@ts-ignore
             setCurrentActive={handleClickOnTask}
             markCompleted={markAsCompleteTask}
             markDeleted={markAsDeleteTask}

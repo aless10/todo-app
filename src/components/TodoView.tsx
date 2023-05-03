@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import { ITask } from "../types";
+import { ITask, Tag } from "../types";
 import TaskList from "./TaskList";
 import TaskDetail from "./TaskDetail";
 
@@ -8,7 +8,7 @@ type TodoViewProps = {
   activeTask?: ITask;
   handleClickOnTask: (e: Event) => void;
   handleChangeTitle: (e: Event) => void;
-  handleChangeTags: (e: Event) => void;
+  handleChangeTags: (tags: Tag[]) => void;
   handleChangeDescription: (e: Event) => void;
   markAsCompleteTask: (taskId: string) => void;
   markAsDeleteTask: (taskId: string) => void;
@@ -46,6 +46,7 @@ export const ToDoView = ({
           <TaskDetail
             handleChangeDescription={handleChangeDescription}
             handleChangeTitle={handleChangeTitle}
+            //@ts-ignore
             handleChangeTags={handleChangeTags}
             task={activeTask}
           />

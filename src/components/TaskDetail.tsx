@@ -6,7 +6,7 @@ import { ITask, Tag } from "../types";
 type Props = {
   task: ITask | undefined;
   handleChangeTitle: (e: Event) => void;
-  handleChangeTags: (e: Event) => void;
+  handleChangeTags: (tags: Tag[]) => void;
   handleChangeDescription: (e: Event) => void;
 };
 
@@ -50,7 +50,8 @@ export default function TaskDetail({
                 label="Title"
                 variant="standard"
                 value={task.title}
-                onChange={handleChangeTitle}
+                //@ts-ignore
+                onChange={(e) => handleChangeTitle(e)}
               />
               <Typography sx={{ m: 2 }} variant="body2">
                 {new Date(task.createdAt).toDateString()}
@@ -70,7 +71,8 @@ export default function TaskDetail({
                     />
                   ))
                 }
-                onChange={(e: Event, value: Tag[]) => handleChangeTags(value)}
+                //@ts-ignore
+                onChange={(_: Event, value: Tag[]) => handleChangeTags(value)}
                 renderInput={(params) => <TextField label="tags" {...params} />}
               />
             </Grid>
@@ -80,6 +82,7 @@ export default function TaskDetail({
             label="Description"
             variant="outlined"
             value={task.text || ""}
+            //@ts-ignore
             onChange={handleChangeDescription}
           />
         </Item>
