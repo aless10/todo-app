@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 import { useState } from "react";
 import Title from "./components/Title";
 import { ToDoView } from "./components/TodoView";
-import { ITask, Tag, CounterType } from "./types";
+import { ITask, Tag, CounterType, csvData } from "./types";
 
 const stateCounter = [
   {
@@ -71,6 +71,8 @@ function App() {
       title: `task ${taskId.split("-")[0]}`,
       active: true,
       state: "created",
+      text: "",
+      tags: [],
     };
     const previousTasks = tasks.map((t) => {
       t.active = false;
@@ -177,9 +179,49 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   };
 
+  const csvExportData = (): csvData => {
+    const headers = [
+      {
+        label: "id",
+        key: "id",
+      },
+      {
+        label: "Created At",
+        key: "createdAt",
+      },
+      {
+        label: "Title",
+        key: "title",
+      },
+      {
+        label: "Active",
+        key: "active",
+      },
+      {
+        label: "State",
+        key: "state",
+      },
+      {
+        label: "Description",
+        key: "text",
+      },
+      {
+        label: "Tags",
+        key: "tags",
+      },
+    ];
+
+    const filename = `todo_${new Date().toLocaleDateString()}.csv`;
+    return {
+      headers,
+      filename,
+      data: tasks,
+    };
+  };
+
   return (
     <>
-      <Menu save={saveToLocalStorage} />
+      <Menu save={saveToLocalStorage} csvExportData={csvExportData()} />
       <DataBoxList counter={counter} />
       <Title handleNewTask={addTask} />
       <ToDoView

@@ -1,4 +1,5 @@
 import Button from "@mui/material/Button";
+import { CSVLink } from "react-csv";
 
 import SaveIcon from "@mui/icons-material/Save";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -10,12 +11,27 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import CheckIcon from "@mui/icons-material/Check";
+import { csvData } from "../types";
 
 type Props = {
   save: () => void;
+  csvExportData: csvData;
 };
 
-function IconLabelButtons({ save }: Props) {
+function IconLabelButtons({ save, csvExportData }: Props) {
+  const csvSerializedData = () => {
+    const serializedTasks = csvExportData.data.map((task) => {
+      return {
+        ...task,
+        tags: task.tags?.map((tag) => tag.label),
+      };
+    });
+    return {
+      ...csvExportData,
+      data: serializedTasks,
+    };
+  };
+
   return (
     <Stack direction="row" spacing={2}>
       <Button
@@ -26,18 +42,20 @@ function IconLabelButtons({ save }: Props) {
       >
         Save
       </Button>
-      <Button
-        variant="contained"
-        sx={{ backgroundColor: "#3366ff" }}
-        startIcon={<DownloadIcon />}
-      >
-        Export
-      </Button>
+      <CSVLink {...csvSerializedData()}>
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: "#3366ff" }}
+          startIcon={<DownloadIcon />}
+        >
+          Export
+        </Button>
+      </CSVLink>
     </Stack>
   );
 }
 
-export default function Menu({ save }: Props) {
+export default function Menu({ save, csvExportData }: Props) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ background: "white", color: "black" }}>
@@ -54,7 +72,7 @@ export default function Menu({ save }: Props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             ToDo App
           </Typography>
-          <IconLabelButtons save={save} />
+          <IconLabelButtons save={save} csvExportData={csvExportData} />
         </Toolbar>
       </AppBar>
     </Box>

@@ -16,3 +16,14 @@ export type ITask = {
   state: "deleted" | "completed" | "created";
   tags?: Tag[];
 };
+
+export type CsvHeaders = {
+  label: string;
+  key: string;
+};
+
+export type csvData = {
+  headers: CsvHeaders[];
+  filename: string;
+  data: ITask[];
+};
