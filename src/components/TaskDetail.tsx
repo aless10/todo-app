@@ -2,6 +2,7 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { Grid, Typography, TextField, Autocomplete, Chip } from "@mui/material";
 import { ITask, Tag } from "../types";
+import { useEffect, useState } from "react";
 
 type Props = {
   task: ITask | undefined;
@@ -31,11 +32,16 @@ export default function TaskDetail({
   handleChangeDescription,
 }: Props) {
   if (!task || ["completed", "deleted"].includes(task.state)) return null;
+  const handleChangeTagsEvent = (e: Event, value: Tag[]) => {
+    e.preventDefault();
+    handleChangeTags(value);
+  };
 
+  console.log(task);
   return (
     <>
       {task && (
-        <Item>
+        <Item sx={{ ml: 3 }}>
           <Grid
             container
             sx={{
@@ -60,8 +66,9 @@ export default function TaskDetail({
                 multiple
                 size="small"
                 options={TAGS}
-                renderTags={(tagValue, getTagProps) =>
-                  tagValue.map((option, index) => (
+                value={task.tags}
+                renderTags={(tagValue, getTagProps) => {
+                  return tagValue.map((option, index) => (
                     <Chip
                       size="small"
                       sx={{ color: option.color }}
@@ -69,10 +76,12 @@ export default function TaskDetail({
                       {...getTagProps({ index })}
                       key={option.label}
                     />
-                  ))
-                }
+                  ));
+                }}
                 //@ts-ignore
-                onChange={(_: Event, value: Tag[]) => handleChangeTags(value)}
+                onChange={(e: Event, value: Tag[]) =>
+                  handleChangeTagsEvent(e, value)
+                }
                 renderInput={(params) => <TextField label="tags" {...params} />}
               />
             </Grid>

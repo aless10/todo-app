@@ -55,6 +55,7 @@ export const Task = ({
             </Typography>
             {tags?.map((tag) => (
               <Chip
+                key={tag.label}
                 label={tag.label}
                 sx={{ ml: 1, bgcolor: tag.color, color: "white" }}
               />
