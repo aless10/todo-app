@@ -2,7 +2,6 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { Grid, Typography, TextField, Autocomplete, Chip } from "@mui/material";
 import { ITask, Tag } from "../types";
-import { useEffect, useState } from "react";
 
 type Props = {
   task: ITask | undefined;
