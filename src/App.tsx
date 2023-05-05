@@ -7,26 +7,26 @@ import Title from "./components/Title";
 import { ToDoView } from "./components/TodoView";
 import { ITask, Tag, CounterType, csvData } from "./types";
 
-const stateCounter = [
-  {
-    key: "created",
-    counter: 0,
-  },
-  {
-    key: "completed",
-    counter: 0,
-  },
-  {
-    key: "deleted",
-    counter: 0,
-  },
-  {
-    key: "remaining",
-    counter: 0,
-  },
-];
-
 function App() {
+  const stateCounter = [
+    {
+      key: "created",
+      counter: 0,
+    },
+    {
+      key: "completed",
+      counter: 0,
+    },
+    {
+      key: "deleted",
+      counter: 0,
+    },
+    {
+      key: "remaining",
+      counter: 0,
+    },
+  ];
+
   const updateCounterByKey = (
     localCounter: CounterType[],
     key: string,
@@ -43,10 +43,13 @@ function App() {
     const savedTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
     if (savedTasks.length > 0) {
       for (const task of savedTasks) {
-        updateCounterByKey(initialCounter, task.state);
         if (task.state === "created") {
           updateCounterByKey(initialCounter, "remaining");
+        } else {
+          updateCounterByKey(initialCounter, task.state);
         }
+
+        updateCounterByKey(initialCounter, "created");
       }
     }
     return [...initialCounter];
